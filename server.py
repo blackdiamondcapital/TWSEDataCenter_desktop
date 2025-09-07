@@ -3,11 +3,6 @@
 
 import sys
 
-# 強制指定 yfinance 套件路徑，解決環境變數問題
-yfinance_path = '/opt/anaconda3/envs/bdstock/lib/python3.10/site-packages'
-if yfinance_path not in sys.path:
-    sys.path.insert(0, yfinance_path)
-
 import time
 import requests
 import pandas as pd
@@ -1413,7 +1408,8 @@ def update_stocks():
         start_date = data.get('start_date', '2023-01-01')
         end_date = data.get('end_date', None)  # 添加 end_date 參數
         update_prices = data.get('update_prices', True)
-        update_returns = data.get('update_returns', True)
+        # 僅抓取股價資料，停用報酬率計算
+        update_returns = False
         
         if not symbols:
             # 如果沒有指定股票，獲取所有股票
@@ -1602,7 +1598,8 @@ def update_stocks():
                             result['price_records'] = 0
                             result['status'] = 'partial'
                     
-                    if update_returns and price_data is not None and (
+                    # 已停用報酬率計算（僅處理股價）
+                    if False and price_data is not None and (
                         (isinstance(price_data, pd.DataFrame) and not price_data.empty and len(price_data) > 1) or
                         (isinstance(price_data, list) and len(price_data) > 1)
                     ):

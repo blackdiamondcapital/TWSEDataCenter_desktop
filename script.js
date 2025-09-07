@@ -693,9 +693,9 @@ class TaiwanStockApp {
             
             this.addLogMessage(`✅ 準備處理 ${symbols.length} 檔股票`, 'success');
             
-            // 設置更新選項的默認值（因為移除了更新內容區塊）
-            const updatePrices = true;  // 默認更新股價數據
-            const updateReturns = true; // 默認更新報酬率數據
+            // 設置更新選項：僅更新股價數據，不計算報酬率
+            const updatePrices = true;   // 更新股價
+            const updateReturns = false; // 不更新報酬率
             
             // 批量更新股票數據
             if (updatePrices || updateReturns) {
